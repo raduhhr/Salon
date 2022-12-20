@@ -1,7 +1,12 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Salon.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<SalonContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SalonContext") ?? throw new InvalidOperationException("Connection string 'SalonContext' not found.")));
 
 var app = builder.Build();
 
